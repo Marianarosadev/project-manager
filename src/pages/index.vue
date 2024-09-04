@@ -1,18 +1,23 @@
 <script lang="ts" setup>
-import { ref } from 'vue';
+  import { useProjectStore } from '~/stores/projectStore';
 
-const showFavorites = ref<boolean>(false);
-const select = ref<string>('alphabetical');
+  const store = useProjectStore();
+  const router = useRouter();
 
-const items = ref<Array<{ text: string; value: string }>>([
-  { text: 'Ordem alfabética', value: 'alphabetical' },
-  { text: 'Projetos iniciados mais recentemente', value: 'recently_started' },
-  { text: 'Projetos próximos à finalização', value: 'near_completion' }
-]);
+  await store.fetchProjects();
 
-const handleShowFavorites = () => {
-  console.log('showFavorites', showFavorites.value);
-};
+  const showFavorites = ref<boolean>(false);
+  const select = ref<string>('alphabetical');
+
+  const items = ref<Array<{ text: string; value: string }>>([
+    { text: 'Ordem alfabética', value: 'alphabetical' },
+    { text: 'Projetos iniciados mais recentemente', value: 'recently_started' },
+    { text: 'Projetos próximos à finalização', value: 'near_completion' }
+  ]);
+
+  const handleShowFavorites = () => {
+    console.log('showFavorites', showFavorites.value);
+  };
 </script>
 
 <template>
@@ -40,5 +45,10 @@ const handleShowFavorites = () => {
         <option v-for="item in items" :key="item.value" :value="item.value">{{ item.text }}</option>
       </select>
     </div>
+  </div>
+
+  <div v-for="project in store.filteredProjects" :key="project.id" class="mb-4 p-4 border rounded-lg">
+    <div>{{ project.name }}</div>
+    <div>{{ project.favorite }}</div>
   </div>
 </template>
