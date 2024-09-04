@@ -1,0 +1,13 @@
+{
+  "projects": [
+    {
+      "id": "1a3b",
+      "name": "Projeto 01",
+      "client": "Clicksign",
+      "startDate": "2024-09-01",
+      "endDate": "2024-12-12",
+      "cover": "",
+      "favorite": true
+    }
+  ]
+}

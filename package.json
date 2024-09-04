@@ -7,11 +7,13 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "start:api": "json-server --watch db.json --port 5000"
   },
   "dependencies": {
     "@mdi/font": "^7.4.47",
     "@pinia/nuxt": "^0.5.4",
+    "json-server": "^1.0.0-beta.2",
     "nuxt": "^3.13.0",
     "pinia": "^2.2.2",
     "vue": "latest"
