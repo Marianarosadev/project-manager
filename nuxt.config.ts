@@ -3,7 +3,7 @@ export default defineNuxtConfig({
   compatibilityDate: '2024-04-03',
   devtools: { enabled: true },
   srcDir: 'src/',
-  css: ['~/assets/styles/main.css'],
+  css: ['~/assets/styles/main.scss'],
   modules: ['@pinia/nuxt'],
   postcss: {
     plugins: {
