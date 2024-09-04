@@ -2,11 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
+$primary-color: #695CCD;
+$secondary-color: #2C0063;
+$accent-color: #FFB23D;
+$background: #F4F2FF;
+$title-color: #1F1283;
+$text-color: #717171;
+
+html, body {
+  height: 100%;
+}
+
 body {
   margin: 0;
-  background-color: black;
+  background-color: $background;
+  color: $text-color;
 
-  h1 {
-    color: white;
+  h1, h2 {
+    color: $title-color;
+    font-weight: 600;
   }
 }

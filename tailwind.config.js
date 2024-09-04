@@ -7,7 +7,16 @@ export default {
     './src/**/*.html'
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        primary: '#695CCD',
+        secondary: '#2C0063',
+        accent: '#FFB23D',
+        background: '#F4F2FF',
+        title: '#1F1283',
+        text: "#717171"
+      },
+    },
   },
   plugins: [],
 }
