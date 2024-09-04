@@ -14,7 +14,8 @@ export default {
         accent: '#FFB23D',
         background: '#F4F2FF',
         title: '#1F1283',
-        text: "#717171"
+        text: "#717171",
+        text2: "#1E1E1E"
       },
     },
   },
