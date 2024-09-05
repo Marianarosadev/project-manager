@@ -1,5 +1,6 @@
 <script lang="ts" setup>
   import { useProjectStore } from '~/stores/projectStore';
+  import ProjectsList from '~/components/project/ProjectsList.vue';
 
   const store = useProjectStore();
   const router = useRouter();
@@ -47,8 +48,5 @@
     </div>
   </div>
 
-  <div v-for="project in store.filteredProjects" :key="project.id" class="mb-4 p-4 border rounded-lg">
-    <div>{{ project.name }}</div>
-    <div>{{ project.favorite }}</div>
-  </div>
+  <ProjectsList :projects="store.filteredProjects" />
 </template>

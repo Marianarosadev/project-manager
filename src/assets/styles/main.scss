@@ -1,14 +1,8 @@
+@import '~/assets/styles/variables.scss';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-$primary-color: #695CCD;
-$secondary-color: #2C0063;
-$accent-color: #FFB23D;
-$background: #F4F2FF;
-$title-color: #1F1283;
-$text-color: #717171;
-$text-color-2: #1E1E1E;
 
 html, body {
   height: 100%;
