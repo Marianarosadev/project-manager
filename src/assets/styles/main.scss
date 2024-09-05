@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Encode+Sans+Semi+Expanded:wght@100;200;300;400;500;600;700;800;900&display=swap');
 @import '~/assets/styles/variables.scss';
 
 @tailwind base;
@@ -9,6 +10,7 @@ html, body {
 }
 
 body {
+  font-family: "Encode Sans Semi Expanded", sans-serif;
   margin: 0;
   background-color: $background;
   color: $text-color;
