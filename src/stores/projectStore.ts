@@ -61,6 +61,23 @@ export const useProjectStore = defineStore('projectStore', {
       }
     },
 
+    async toggleFavorite(projectId: string) {
+      const project = this._projects.find(p => p.id === projectId);
+      
+      if (project) {
+        project.favorite = !project.favorite;
+        
+        try {
+          await axiosIns.put(`/projects/${projectId}`, {
+            ...project,
+            favorite: project.favorite,
+          });
+        } catch (e) {
+          toast.error('Ocorreu um erro ao atualizar o projeto');
+        }
+      }
+    },
+
     toggleSearchMode(isSearchActive: boolean) {
       this.clearFilters();
       this.isSearching = isSearchActive;

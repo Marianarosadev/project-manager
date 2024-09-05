@@ -1,11 +1,13 @@
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { useProjectStore } from '~/stores/projectStore';
 import type { Project } from "@/types";
 import { formatDate } from '~/utils/formatters'
 import IconStar from '~/components/icons/star.vue'
 import defaultImage from "~/assets/images/default.svg";
 import CalendarStart from '~/assets/icons/calendar-day-light.svg'
 import CalendarEnd from '~/assets/icons/calendar-check-light.svg'
+
+const store = useProjectStore();
 
 const { project } = defineProps<{ project: Project }>();
 
@@ -20,7 +22,7 @@ const items = ref<{ title: string; action: string, icon: string }[]>([
     <div class="relative">
       <img :src="defaultImage" alt="Imagem do Projeto" class="w-full h-48 object-cover rounded-t-[16px]" />
       <div class="flex w-16 justify-between align-center absolute bottom-0 right-0 m-2">
-        <div class="cursor-pointer hover:opacity-80">
+        <div class="cursor-pointer hover:opacity-80"  @click="store.toggleFavorite(project.id)">
           <IconStar :isFavorite="project.favorite" />
         </div>
         <v-menu>
@@ -57,25 +59,20 @@ const items = ref<{ title: string; action: string, icon: string }[]>([
 </template>
 
 <style lang="scss">
-@import '~/assets/styles/variables.scss';
+  .icon-calendar {
+    width: 24px;
+    height: 24px;
+  }
 
-.icon-calendar {
-  width: 24px;
-  height: 24px;
-}
+  .v-list {
+    padding: 0 !important;
+  }
 
-.v-icon {
-  color: $primary-color;
-}
-
-.v-list-item__prepend {
-  max-width: 33px;
-}
-
-.v-list {
-  padding: 0 !important;
-}
-.v-list-item {
-  border-bottom: 1px solid #F4F2FF !important;
-}
+  .v-list-item {
+    border-bottom: 1px solid #F4F2FF !important;
+    
+    &__prepend {
+      max-width: 33px;
+    }
+  }
 </style>
