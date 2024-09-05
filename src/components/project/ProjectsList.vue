@@ -6,7 +6,7 @@
 </script>
 
 <template>
-  <div class="px-5 flex flex-wrap gap-5 justify-start">
+  <div class="px-5 pb-5 flex flex-wrap gap-5 justify-start">
     <ProjectCard
       v-for="project in store.filteredProjects"
       :key="project.id"

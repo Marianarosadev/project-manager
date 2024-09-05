@@ -4,13 +4,11 @@
 
   const store = useProjectStore();
   await store.fetchProjects(); 
-  const router = useRouter();
 
-  const select = ref<string>('alphabetical');
   const items = ref<Array<{ text: string; value: string }>>([
     { text: 'Ordem alfabética', value: 'alphabetical' },
-    { text: 'Projetos iniciados mais recentemente', value: 'recently_started' },
-    { text: 'Projetos próximos à finalização', value: 'near_completion' }
+    { text: 'Projetos iniciados mais recentemente', value: 'startDate' },
+    { text: 'Projetos próximos à finalização', value: 'endDate' }
   ]);
 </script>
 
@@ -18,7 +16,7 @@
   <div class="flex align-center justify-between px-5 my-6">
     <div class="d-flex align-center text-title">
       <h1 class="mr-1 text-xl">Projetos</h1>
-      <div class="text-base">(2)</div>
+      <div class="text-base">({{ store.filteredProjects.length }})</div>
     </div>
     <div class="d-flex align-center">
       <label class="inline-flex items-center cursor-pointer h-full min-w-48">

@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 import type { Project } from "@/types";
+import { formatDate } from '~/utils/formatters'
 import IconStar from '~/components/icons/star.vue'
 import defaultImage from "~/assets/images/default.svg";
 import CalendarStart from '~/assets/icons/calendar-day-light.svg'
@@ -44,11 +45,11 @@ const items = ref<{ title: string; action: string, icon: string }[]>([
       <div class="p-2">
         <div class="flex align-center mb-3">
           <img :src="CalendarStart" alt="Ícone calendário inicio do projeto" class="icon-calendar mr-3">
-          <div class="text-text">{{ project.startDate }}</div>
+          <div class="text-text">{{ formatDate(project.startDate) }}</div>
         </div>
         <div class="flex align-center">
           <img :src="CalendarEnd" alt="Ícone calendário inicio do projeto" class="icon-calendar mr-3">
-          <div class="text-text">{{ project.endDate }}</div>
+          <div class="text-text">{{ formatDate(project.endDate) }}</div>
         </div>
       </div>
     </div>

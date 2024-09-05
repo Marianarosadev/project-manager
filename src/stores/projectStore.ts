@@ -26,13 +26,19 @@ export const useProjectStore = defineStore('projectStore', {
         filtered = filtered.filter(project => project.favorite);
       }
 
-      if (state.filters.sortOrder === 'alphabetical') {
-        filtered = filtered.sort((a, b) => a.name.localeCompare(b.name));
-      } else if (state.filters.sortOrder === 'recentStart') {
-        filtered = filtered.sort((a, b) => new Date(b.startDate).getTime() - new Date(a.startDate).getTime());
-      } else if (state.filters.sortOrder === 'upcomingEnd') {
-        filtered = filtered.sort((a, b) => new Date(a.endDate).getTime() - new Date(b.endDate).getTime());
+      switch (state.filters.sortOrder) {
+        case 'startDate':
+          filtered = filtered.sort((a, b) => new Date(b.startDate).getTime() - new Date(a.startDate).getTime());
+          break
+        case 'endDate':
+          filtered = filtered.sort((a, b) => new Date(b.endDate).getTime() - new Date(a.endDate).getTime());
+          break
+        case 'alphabetical':
+        default:
+          filtered = filtered.sort((a, b) => a.name.localeCompare(b.name));
       }
+      
+      console.log('filtered', filtered)
 
       return filtered;
     },
