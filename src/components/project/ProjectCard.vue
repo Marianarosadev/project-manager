@@ -2,6 +2,7 @@
 import { useProjectStore } from '~/stores/projectStore';
 import type { Project } from "@/types";
 import { formatDate } from '~/utils/formatters'
+import DialogDeletProject from '~/components/dialogs/DialogDeletProject.vue'
 import IconStar from '~/components/icons/star.vue'
 import defaultImage from "~/assets/images/default.svg";
 import CalendarStart from '~/assets/icons/calendar-day-light.svg'
@@ -10,11 +11,22 @@ import CalendarEnd from '~/assets/icons/calendar-check-light.svg'
 const store = useProjectStore();
 
 const { project } = defineProps<{ project: Project }>();
+const isDialogVisible = ref<boolean>(false);
 
 const items = ref<{ title: string; action: string, icon: string }[]>([
   { title: 'Editar', action: 'edit', icon: 'mdi-square-edit-outline' },
   { title: 'Excluir', action: 'delete', icon: 'mdi-delete-outline' },
 ]);
+
+const handleMenuAction = (action: string) => {
+  if(action === 'delete')
+    openDialogDeletProject();
+};
+
+const openDialogDeletProject = () => {
+  isDialogVisible.value = true;
+};
+
 </script>
 
 <template>
@@ -30,7 +42,7 @@ const items = ref<{ title: string; action: string, icon: string }[]>([
             <v-btn class="btn-actions" color="white" v-bind="props" density="compact" icon="mdi-dots-horizontal"></v-btn>
           </template>
           <v-list>
-            <v-list-item v-for="(item, index) in items" :key="index" :value="index" :prepend-icon="item.icon" base-color="primary">
+            <v-list-item v-for="(item, index) in items" :key="index" :value="index" @click="handleMenuAction(item.action)" :prepend-icon="item.icon" base-color="primary">
               <v-list-item-title>{{ item.title }}</v-list-item-title>
             </v-list-item>
           </v-list>
@@ -55,6 +67,13 @@ const items = ref<{ title: string; action: string, icon: string }[]>([
         </div>
       </div>
     </div>
+
+    <DialogDeletProject 
+      :is-dialog-visible="isDialogVisible"
+      :project-id="project.id"
+      :project-name="project.name"
+      @update:is-dialog-visible="val => isDialogVisible = val"
+    />
   </div>
 </template>
 

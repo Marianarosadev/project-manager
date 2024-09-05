@@ -78,6 +78,17 @@ export const useProjectStore = defineStore('projectStore', {
       }
     },
 
+    async deleteProject(projectId: string) {
+      try {
+        await axiosIns.delete(`/projects/${projectId}`);
+        this.fetchProjects()
+
+        toast.success('Projeto excluído com sucesso');
+      } catch (e) {
+        toast.error('Ocorreu um erro ao atualizar o projeto');
+      }
+    },
+
     toggleSearchMode(isSearchActive: boolean) {
       this.clearFilters();
       this.isSearching = isSearchActive;
