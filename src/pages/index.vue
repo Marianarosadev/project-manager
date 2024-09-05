@@ -3,13 +3,10 @@
   import ProjectsList from '~/components/project/ProjectsList.vue';
 
   const store = useProjectStore();
+  await store.fetchProjects(); 
   const router = useRouter();
 
-  await store.fetchProjects();
-
-  const showFavorites = ref<boolean>(false);
   const select = ref<string>('alphabetical');
-
   const items = ref<Array<{ text: string; value: string }>>([
     { text: 'Ordem alfabética', value: 'alphabetical' },
     { text: 'Projetos iniciados mais recentemente', value: 'recently_started' },
@@ -37,7 +34,7 @@
         </div>
         <span class="ml-2 text-base text-text2">Apenas Favoritos</span>
       </label>
-      <select v-model="select"
+      <select v-model="store.filters.sortOrder"
         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
         <option v-for="item in items" :key="item.value" :value="item.value">{{ item.text }}</option>
       </select>

@@ -15,6 +15,7 @@ export const useProjectStore = defineStore('projectStore', {
     _projects: [] as Project[],
     filters: {
       showFavorites: false,
+      sortOrder: 'alphabetical',
     } as Filters,
   }),
   getters: {
@@ -23,6 +24,14 @@ export const useProjectStore = defineStore('projectStore', {
 
       if (state.filters.showFavorites) {
         filtered = filtered.filter(project => project.favorite);
+      }
+
+      if (state.filters.sortOrder === 'alphabetical') {
+        filtered = filtered.sort((a, b) => a.name.localeCompare(b.name));
+      } else if (state.filters.sortOrder === 'recentStart') {
+        filtered = filtered.sort((a, b) => new Date(b.startDate).getTime() - new Date(a.startDate).getTime());
+      } else if (state.filters.sortOrder === 'upcomingEnd') {
+        filtered = filtered.sort((a, b) => new Date(a.endDate).getTime() - new Date(b.endDate).getTime());
       }
 
       return filtered;

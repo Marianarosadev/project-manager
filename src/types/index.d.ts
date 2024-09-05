@@ -10,4 +10,5 @@ export interface Project {
 
 export interface Filters {
   showFavorites: boolean;
+  sortOrder: string;
 }
