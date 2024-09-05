@@ -9,6 +9,12 @@ export interface Project {
 }
 
 export interface Filters {
+  searchQuery: sring,
+  showFavorites: boolean;
+  sortOrder: string;
+}
+
+export interface searchHistory {
   showFavorites: boolean;
   sortOrder: string;
 }

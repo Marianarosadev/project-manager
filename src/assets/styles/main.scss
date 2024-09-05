@@ -19,4 +19,11 @@ body {
     color: $title-color;
     font-weight: 600;
   }
+
+  mark {
+    background-color: transparent !important;
+    color: $primary-color !important;
+    border-radius: 2px;
+    font-weight: 600;
+  }
 }

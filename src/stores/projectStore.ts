@@ -14,13 +14,22 @@ export const useProjectStore = defineStore('projectStore', {
   state: () => ({
     _projects: [] as Project[],
     filters: {
+      searchQuery: '',
       showFavorites: false,
       sortOrder: 'alphabetical',
     } as Filters,
+    searchHistory: [] as string[],
+    isSearching: false as boolean
   }),
   getters: {
     filteredProjects: (state) => {
       let filtered = state._projects;
+
+      if (state.filters.searchQuery.trim()) {
+        filtered = filtered.filter(project =>
+          project.name.toLowerCase().includes(state.filters.searchQuery.toLowerCase())
+        );
+      }
 
       if (state.filters.showFavorites) {
         filtered = filtered.filter(project => project.favorite);
@@ -28,20 +37,19 @@ export const useProjectStore = defineStore('projectStore', {
 
       switch (state.filters.sortOrder) {
         case 'startDate':
-          filtered = filtered.sort((a, b) => new Date(b.startDate).getTime() - new Date(a.startDate).getTime());
+          filtered = filtered.sort((a, b) => new Date(b.endDate).getTime() - new Date(a.endDate).getTime());
           break
         case 'endDate':
-          filtered = filtered.sort((a, b) => new Date(b.endDate).getTime() - new Date(a.endDate).getTime());
+          filtered = filtered.sort((a, b) => new Date(b.startDate).getTime() - new Date(a.startDate).getTime());
           break
         case 'alphabetical':
         default:
           filtered = filtered.sort((a, b) => a.name.localeCompare(b.name));
       }
-      
-      console.log('filtered', filtered)
 
       return filtered;
     },
+    recentSearches: (state) => state.searchHistory.slice(-5).reverse(),
   },
   actions: {
     async fetchProjects() {
@@ -51,6 +59,36 @@ export const useProjectStore = defineStore('projectStore', {
       } catch (e) {
         toast.error('Ocorreu um erro inesperado')
       }
+    },
+
+    toggleSearchMode(isSearchActive: boolean) {
+      this.clearFilters();
+      this.isSearching = isSearchActive;
+    },
+
+    setSearchQuery(query: string) {
+      this.filters.searchQuery = query;
+    },
+
+    addToSearchHistory(query: string) {
+      if (query && !this.searchHistory.includes(query)) {
+        this.searchHistory.push(query);
+        if (this.searchHistory.length > 5) {
+          this.searchHistory.shift();
+        }
+      }
+    },
+
+    removeFromSearchHistory(query: string) {
+      this.searchHistory = this.searchHistory.filter(search => search !== query);
+    },
+
+    clearFilters() {
+      this.filters = {
+        searchQuery: '',
+        showFavorites: false,
+        sortOrder: 'alphabetical',
+      };
     },
   },
 });

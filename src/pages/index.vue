@@ -14,11 +14,17 @@
 
 <template>
   <div class="flex align-center justify-between px-5 my-6">
-    <div class="d-flex align-center text-title">
-      <h1 class="mr-1 text-xl">Projetos</h1>
-      <div class="text-base">({{ store.filteredProjects.length }})</div>
+    <div>
+      <div v-if="store.isSearching" @click="store.toggleSearchMode(false)" class="flex align-center hover:opacity-80 cursor-pointer mb-3 w-20">
+        <v-icon class="mr-2" width="16">mdi-arrow-left</v-icon>
+        <div class="text-primary">Voltar</div>
+      </div>
+      <div class="d-flex align-center text-title">
+        <h1 class="mr-1 text-xl">{{ store.isSearching? 'Resultado da busca' : 'Projetos' }}</h1>
+        <div class="text-base">({{ store.filteredProjects.length }})</div>
+      </div>
     </div>
-    <div class="d-flex align-center">
+    <div v-if="!store.isSearching"  class="d-flex align-center">
       <label class="inline-flex items-center cursor-pointer h-full min-w-48">
         <input v-model="store.filters.showFavorites" type="checkbox" id="favoriteFilter" class="sr-only peer">
         <div class="relative w-11 h-6 bg-gray-200 rounded-full peer 
