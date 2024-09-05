@@ -7,3 +7,7 @@ export interface Project {
   cover: string;
   favorite: boolean;
 }
+
+export interface Filters {
+  showFavorites: boolean;
+}

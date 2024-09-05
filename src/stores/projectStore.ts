@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import axios from 'axios';
-import type { Project } from '~/types';
+import type { Project, Filters } from '~/types';
 import { useToast } from "vue-toastification";
 
 const toast = useToast();
@@ -13,13 +13,17 @@ const axiosIns = axios.create({
 export const useProjectStore = defineStore('projectStore', {
   state: () => ({
     _projects: [] as Project[],
-    _filters: {
-      showFavorites: false as boolean,
-    } as Object,
+    filters: {
+      showFavorites: false,
+    } as Filters,
   }),
   getters: {
     filteredProjects: (state) => {
       let filtered = state._projects;
+
+      if (state.filters.showFavorites) {
+        filtered = filtered.filter(project => project.favorite);
+      }
 
       return filtered;
     },

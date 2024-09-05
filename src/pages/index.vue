@@ -15,10 +15,6 @@
     { text: 'Projetos iniciados mais recentemente', value: 'recently_started' },
     { text: 'Projetos próximos à finalização', value: 'near_completion' }
   ]);
-
-  const handleShowFavorites = () => {
-    console.log('showFavorites', showFavorites.value);
-  };
 </script>
 
 <template>
@@ -29,7 +25,7 @@
     </div>
     <div class="d-flex align-center">
       <label class="inline-flex items-center cursor-pointer h-full min-w-48">
-        <input v-model="showFavorites" type="checkbox" value="" class="sr-only peer" @input="handleShowFavorites">
+        <input v-model="store.filters.showFavorites" type="checkbox" id="favoriteFilter" class="sr-only peer">
         <div class="relative w-11 h-6 bg-gray-200 rounded-full peer 
                     peer-checked:bg-accent peer-checked:after:translate-x-full 
                     rtl:peer-checked:after:-translate-x-full 
@@ -47,6 +43,5 @@
       </select>
     </div>
   </div>
-
-  <ProjectsList :projects="store.filteredProjects" />
+  <ProjectsList/>
 </template>
