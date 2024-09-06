@@ -16,11 +16,7 @@
 - **Destaque nos Resultados de Busca**: Destaca visualmente os termos que correspondem aos resultados da busca.
 - **Histórico de Pesquisas Recentes**: Armazena e exibe as últimas 5 pesquisas realizadas pelo usuário.
 
-- **Visualização de Posts**: Os usuários podem visualizar posts que incluem título, subtítulo, data de publicação, informações sobre o autor e conteúdo completo.
-- **Comentários**: Os posts suportam comentários, permitindo que os usuários respondam aos posts e interajam entre si. Comentários podem ser respondidos, criando uma discussão encadeada.
-- **Detalhes do Usuário**: Ao clicar no nome de um usuário que comentou, um modal é exibido com informações detalhadas sobre o usuário, como foto, data de filiação, amigos em comum e detalhes de seus posts.
-
-![Screenshot da aplicação](./src/assets/readme/pagina-inicial.jpeg)
+![Screenshot da aplicação](./src/assets/readme/Pagina-inicial.jpeg)
 
 ## 💻 Tecnologias Utilizadas
 
@@ -49,7 +45,7 @@ Certifique-se de ter o **Node.js ^18.0.0** instalado.
    ```sh
    npm run dev
 
- Após iniciar o servidor, será possível visualizar a tela de posts e os comentários.
+ Após iniciar o servidor siga as próximas instruções para iniciar a API.
 
 ## ⚙️ Executando a API
 
