@@ -55,5 +55,6 @@
       </v-btn>
     </div>
   </div>
-  <ProjectsList/>
+  <div v-if="store.filteredProjects.length < 1" class="w-full text-center py-10">Nenhum projeto encontrado...</div>
+  <ProjectsList v-else/>
 </template>
