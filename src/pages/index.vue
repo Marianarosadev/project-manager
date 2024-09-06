@@ -15,7 +15,7 @@
 </script>
 
 <template>
-  <div class="flex align-center justify-between px-5 my-6">
+  <div class="title-nav flex align-center justify-between px-5 my-6">
     <div>
       <div v-if="store.isSearching" @click="store.toggleSearchMode(false)" class="flex align-center hover:opacity-80 cursor-pointer mb-3 w-20">
         <v-icon class="mr-2" width="16" color="primary">mdi-arrow-left</v-icon>
@@ -26,8 +26,8 @@
         <div class="text-base">({{ store.filteredProjects.length }})</div>
       </div>
     </div>
-    <div v-if="!store.isSearching"  class="d-flex align-center">
-      <label class="inline-flex items-center cursor-pointer h-full min-w-48">
+    <div v-if="!store.isSearching" class="title-options flex align-center">
+      <label class="switch inline-flex items-center cursor-pointer h-full min-w-48">
         <input v-model="store.filters.showFavorites" type="checkbox" id="favoriteFilter" class="sr-only peer">
         <div class="relative w-11 h-6 bg-gray-200 rounded-full peer 
                     peer-checked:bg-accent peer-checked:after:translate-x-full 
@@ -41,7 +41,7 @@
         <span class="ml-2 text-base text-text2">Apenas Favoritos</span>
       </label>
       <select v-model="store.filters.sortOrder"
-        class="cursor-pointer bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mx-4">
+        class="md:mx-4 cursor-pointer bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
         <option v-for="item in items" :key="item.value" :value="item.value" class="cursor-pointer">{{ item.text }}</option>
       </select>
       <v-btn 
@@ -58,3 +58,24 @@
   <div v-if="store.filteredProjects.length < 1" class="w-full text-center py-10">Nenhum projeto encontrado...</div>
   <ProjectsList v-else/>
 </template>
+
+<style lang="scss">
+  @media (max-width: 991px) {
+    .title-nav {
+      display: block;
+
+      .title-options {
+        display: block;
+      }
+
+      .switch {
+        margin-top: 12px;
+      }
+
+      select {
+        margin: 12px 0;
+        max-width: 300px;
+      }
+    }
+  }
+</style>
