@@ -15,10 +15,10 @@ export default {
         background: '#F4F2FF',
         title: '#1F1283',
         text: "#717171",
-        text2: "#1E1E1E"
+        text2: "#1E1E1E",
+        text3: '#1C1930'
       },
     },
   },
   plugins: [],
 }
-

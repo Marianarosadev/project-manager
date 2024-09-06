@@ -1,9 +1,11 @@
 <script lang="ts" setup>
   import { useProjectStore } from '~/stores/projectStore';
   import ProjectsList from '~/components/project/ProjectsList.vue';
+  import { useRouter } from 'vue-router';
 
   const store = useProjectStore();
   await store.fetchProjects(); 
+  const router = useRouter();
 
   const items = ref<Array<{ text: string; value: string }>>([
     { text: 'Ordem alfabética', value: 'alphabetical' },
@@ -16,7 +18,7 @@
   <div class="flex align-center justify-between px-5 my-6">
     <div>
       <div v-if="store.isSearching" @click="store.toggleSearchMode(false)" class="flex align-center hover:opacity-80 cursor-pointer mb-3 w-20">
-        <v-icon class="mr-2" width="16">mdi-arrow-left</v-icon>
+        <v-icon class="mr-2" width="16" color="primary">mdi-arrow-left</v-icon>
         <div class="text-primary">Voltar</div>
       </div>
       <div class="d-flex align-center text-title">
@@ -39,9 +41,18 @@
         <span class="ml-2 text-base text-text2">Apenas Favoritos</span>
       </label>
       <select v-model="store.filters.sortOrder"
-        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
-        <option v-for="item in items" :key="item.value" :value="item.value">{{ item.text }}</option>
+        class="cursor-pointer bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mx-4">
+        <option v-for="item in items" :key="item.value" :value="item.value" class="cursor-pointer">{{ item.text }}</option>
       </select>
+      <v-btn 
+        variant="outlined"
+        color="primary"
+        rounded="xl"
+        prepend-icon="mdi-plus"
+        @click="() => router.push('/projects/new')"
+      >
+        Novo projeto
+      </v-btn>
     </div>
   </div>
   <ProjectsList/>

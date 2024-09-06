@@ -1,7 +1,8 @@
-import { defineStore } from 'pinia';
-import axios from 'axios';
-import type { Project, Filters } from '~/types';
-import { useToast } from "vue-toastification";
+import { defineStore } from 'pinia'
+import axios from 'axios'
+import type { Project, Filters } from '~/types'
+import { useToast } from "vue-toastification"
+import { generateId } from '~/utils/utils'
 
 const toast = useToast();
 const BASE_URL = 'http://localhost:5000'
@@ -37,11 +38,11 @@ export const useProjectStore = defineStore('projectStore', {
 
       switch (state.filters.sortOrder) {
         case 'startDate':
-          filtered = filtered.sort((a, b) => new Date(b.endDate).getTime() - new Date(a.endDate).getTime());
-          break
+          filtered = filtered.sort((a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime());
+          break;
         case 'endDate':
-          filtered = filtered.sort((a, b) => new Date(b.startDate).getTime() - new Date(a.startDate).getTime());
-          break
+          filtered = filtered.sort((a, b) => new Date(a.endDate).getTime() - new Date(b.endDate).getTime());
+          break;
         case 'alphabetical':
         default:
           filtered = filtered.sort((a, b) => a.name.localeCompare(b.name));
@@ -75,6 +76,35 @@ export const useProjectStore = defineStore('projectStore', {
         } catch (e) {
           toast.error('Ocorreu um erro ao atualizar o projeto');
         }
+      }
+    },
+
+    async getProjectById(projectId: string) {
+      try {
+        const response = await axiosIns.get(`/projects/${projectId}`);
+        return response.data
+      } catch (e) {
+        toast.error('Ocorreu um erro ao procurar o projeto');
+      }
+    },
+
+    async updateProject(project: Project) {
+      try {
+        await axiosIns.put(`/projects/${project.id}`, {
+          ...project,
+        });
+        toast.success('Projeto atualizado com sucesso');
+      } catch (e) {
+        toast.error('Ocorreu um erro ao atualizar o projeto');
+      }
+    },
+
+    async createProject(project: Project) {
+      try {
+        await axios.post('http://localhost:5000/projects', project);
+        toast.success('Projeto criado com sucesso');
+      } catch (e) {
+        toast.error('Ocorreu um erro ao criar o projeto');
       }
     },
 

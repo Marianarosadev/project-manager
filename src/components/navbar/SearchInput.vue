@@ -67,7 +67,7 @@ const removeFromHistory = (search: string) => {
   <div class="relative flex flex-col w-full min-h-5 h-16 bg-white rounded-lg rounded-b-sm shadow-md text-text">
     <div class="d-flex text-text">
       <div class="h-full flex align-center py-5 px-3">
-        <v-icon>mdi-magnify</v-icon>
+        <v-icon color="primary">mdi-magnify</v-icon>
       </div>
       <input v-model="searchQuery" type="text" placeholder="Digite o nome do projeto..."
         class="flex-1 p-2 border border-none w-full focus:outline-none bg-white text-lg min-h-5 text-text" 

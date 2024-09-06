@@ -9,6 +9,7 @@ import CalendarStart from '~/assets/icons/calendar-day-light.svg'
 import CalendarEnd from '~/assets/icons/calendar-check-light.svg'
 
 const store = useProjectStore();
+const router = useRouter();
 
 const { project } = defineProps<{ project: Project }>();
 const isDialogVisible = ref<boolean>(false);
@@ -19,8 +20,16 @@ const items = ref<{ title: string; action: string, icon: string }[]>([
 ]);
 
 const handleMenuAction = (action: string) => {
-  if(action === 'delete')
-    openDialogDeletProject();
+  switch (action) {
+    case 'delete':
+      openDialogDeletProject();
+      break;
+    case 'edit':
+      router.push(`/projects/${project.id}`)
+      break;
+    default:
+      break;
+  }
 };
 
 const openDialogDeletProject = () => {
@@ -30,19 +39,22 @@ const openDialogDeletProject = () => {
 </script>
 
 <template>
-  <div class="max-w-xs bg-white shadow-lg rounded-[16px]">
+  <div class="max-w-xs bg-white shadow-lg rounded-[16px] w-[270px]">
     <div class="relative">
-      <img :src="defaultImage" alt="Imagem do Projeto" class="w-full h-48 object-cover rounded-t-[16px]" />
+      <img :src="project.cover ? project.cover : defaultImage" alt="Imagem do Projeto"
+        class="w-full h-48 object-cover rounded-t-[16px]" />
       <div class="flex w-16 justify-between align-center absolute bottom-0 right-0 m-2">
-        <div class="cursor-pointer hover:opacity-80"  @click="store.toggleFavorite(project.id)">
+        <div class="cursor-pointer hover:opacity-80" @click="store.toggleFavorite(project.id)">
           <IconStar :isFavorite="project.favorite" />
         </div>
         <v-menu>
           <template v-slot:activator="{ props }">
-            <v-btn class="btn-actions" color="white" v-bind="props" density="compact" icon="mdi-dots-horizontal"></v-btn>
+            <v-btn class="btn-actions" color="white" v-bind="props" density="compact"
+              icon="mdi-dots-horizontal"></v-btn>
           </template>
           <v-list>
-            <v-list-item v-for="(item, index) in items" :key="index" :value="index" @click="handleMenuAction(item.action)" :prepend-icon="item.icon" base-color="primary">
+            <v-list-item v-for="(item, index) in items" :key="index" :value="index"
+              @click="handleMenuAction(item.action)" :prepend-icon="item.icon" base-color="primary">
               <v-list-item-title>{{ item.title }}</v-list-item-title>
             </v-list-item>
           </v-list>
@@ -68,30 +80,26 @@ const openDialogDeletProject = () => {
       </div>
     </div>
 
-    <DialogDeletProject 
-      :is-dialog-visible="isDialogVisible"
-      :project-id="project.id"
-      :project-name="project.name"
-      @update:is-dialog-visible="val => isDialogVisible = val"
-    />
+    <DialogDeletProject :is-dialog-visible="isDialogVisible" :project-id="project.id" :project-name="project.name"
+      @update:is-dialog-visible="val => isDialogVisible = val" />
   </div>
 </template>
 
 <style lang="scss">
-  .icon-calendar {
-    width: 24px;
-    height: 24px;
-  }
+.icon-calendar {
+  width: 24px;
+  height: 24px;
+}
 
-  .v-list {
-    padding: 0 !important;
-  }
+.v-list {
+  padding: 0 !important;
+}
 
-  .v-list-item {
-    border-bottom: 1px solid #F4F2FF !important;
-    
-    &__prepend {
-      max-width: 33px;
-    }
+.v-list-item {
+  border-bottom: 1px solid #F4F2FF !important;
+
+  &__prepend {
+    max-width: 33px;
   }
+}
 </style>

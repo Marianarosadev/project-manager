@@ -4,7 +4,9 @@ import SearchInput from './SearchInput.vue';
 import { useProjectStore } from '~/stores/projectStore';
 
 const store = useProjectStore();
+const route = useRoute();
 
+console.log('route', route)
 </script>
 
 <template>
@@ -15,9 +17,10 @@ const store = useProjectStore();
     <div  key="navbar" class="flex items-center justify-between w-full ">
       <div class="flex-1"></div>
       <NuxtLink to="/"><img :src="Logo" alt="Logo" class="h-13"></NuxtLink>
-      <div class="flex-1 text-right">
+      <div v-if="route.path === '/'" class="flex-1 text-right">
         <v-icon @click="store.toggleSearchMode(true)" class="hover:opacity-80"width="18" color="white">mdi-magnify</v-icon>
       </div>
+      <div v-else class="flex-1"></div>
     </div>
   </nav>
 </template>
