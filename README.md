@@ -20,6 +20,8 @@
 
 ## 💻 Tecnologias Utilizadas
 
+[![My Skills](https://skillicons.dev/icons?i=nuxt,ts,tailwind,sass,pinia,vuetify)](https://skillicons.dev)
+
 - **Nuxt.js 3**
 - **TypeScript**
 - **Tailwind css**
@@ -61,6 +63,6 @@ O Project-Manajer, utiliza o  [jason-server](https://www.npmjs.com/package/json-
 
 Agora você pode fazer requisições HTTP para a API usando o endereço fornecido.
 
- ## ⚙️ Observações
+ ## 🧾️ Observações
 
  - No ambiente local do Project-Manajer, pode haver problemas na visualização das imagens dos projetos. Isso ocorre porque a API simula o armazenamento local e as URLs das imagens não são hospedadas em servidores reais. Em um ambiente de produção com uma API real, as imagens seriam corretamente hospedadas em servidores, resolvendo esse problema.
